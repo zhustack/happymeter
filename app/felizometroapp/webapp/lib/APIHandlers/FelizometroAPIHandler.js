@@ -45,8 +45,7 @@ sap.ui.define([
         getUltimoMood() {
             return new Promise(resolve => {
                 this._felizometroModel.callFunction("/getUltimoMood", {
-                    filters: filters,
-                    success: (res) => resolve(res.getUltimoMood || res)
+                    success: (res) => resolve(res.results)
                 })
             });
         },

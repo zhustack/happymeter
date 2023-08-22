@@ -4,36 +4,33 @@
     <Page id="page" title="{i18n>title}" class="sapUiResponsiveContentPadding" showFooter="true">
         <content>
             <Panel headerText="Olá, {ViewModel>/usuario/firstName}" width="100%">
-                <FlexBox direction="Row" alignItems="Start" justifyContent="Start">
-                    <Avatar src="{ViewModel>/usuario/foto}" displaySize="XL" class="sapUiSmallMarginEnd"/>
-                    <form:SimpleForm id="SimpleFormDisplay354"
-                        editable="false"
-                        layout="ResponsiveGridLayout"
-                        title="Seus dados básicos"
-                        labelSpanXL="3"
-                        labelSpanL="3"
-                        labelSpanM="3"
-                        labelSpanS="12"
-                        adjustLabelSpan="false"
-                        emptySpanXL="4"
-                        emptySpanL="4"
-                        emptySpanM="4"
-                        emptySpanS="0"
-                        columnsXL="1"
-                        columnsL="1"
-                        columnsM="1"
-                        singleContainerFullSize="false" >
-                        <form:content>
-                            <Label text="Nome completo" />
-                            <Text text="{ViewModel>/usuario/defaultFullName}" />
-                            <Label text="Cargo" />
-                            <Text text="{ViewModel>/usuario/jobTitle}" />
-                            <Label text="Departamento" />
-                            <Text text="{ViewModel>/usuario/department}" />
-                            <Label text="Gestor" />
-                            <Text text="{ViewModel>/usuario/manager/defaultFullName}" />
-                        </form:content>
-                    </form:SimpleForm>
+                <FlexBox direction="Row" alignItems="Center" justifyContent="Start" width="100%">
+                    <Avatar src="{ViewModel>/usuario/foto}" customDisplaySize="130px" displaySize="Custom" class="sapUiSmallMarginEnd"/>
+                    <Panel headerText="Seus dados básicos" width="100%">
+                        <HBox justifyContent="SpaceBetween" alignItems="Start" width="100%">
+                            <VBox width="50%">
+                                <Label text="Nome completo:" />
+                                <Label design="Bold" text="{ViewModel>/usuario/defaultFullName}" />
+                                <Label text="Cargo:" />
+                                <Label design="Bold" text="{ViewModel>/usuario/jobTitle}" />
+                                <Label text="Departamento:" />
+                                <Label design="Bold" text="{ViewModel>/usuario/department}" />
+                                <Label text="Gestor:" />
+                                <Label design="Bold" text="{ViewModel>/usuario/manager/defaultFullName}" />
+                            </VBox>
+                            <VBox width="50%"  visible="{= ${ViewModel>/ultimoMood} !== null}" justifyContent="Center">
+                                <Label design="Bold" text="Aqui está sua última avaliação de felicidade:"/>
+                                <Avatar src="assets/{ViewModel>/ultimoMood/icone}" showBorder="false" customDisplaySize="90px" displaySize="Custom"/>
+                                <Text text="Avaliação enviada em {path: 'ViewModel>/ultimoMood/data', formatter: '.formatter.dateTimeToString'}"/>
+                            </VBox>
+                            <VBox width="50%"  visible="{= ${ViewModel>/ultimoMood} === null}" justifyContent="Center">
+                                <Label design="Bold" text="Ops! Parece que você ainda não realizou nenhuma reflexão sobre como está se sentindo, aproveite e faça já!"/>
+                            </VBox>
+                        </HBox>
+                        <layoutData>
+                            <FlexItemData growFactor="1"/>
+                        </layoutData>
+                    </Panel>
                 </FlexBox>
             </Panel>
             <Panel class="sapUiSmallMarginTop" width="100%">

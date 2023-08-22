@@ -47,10 +47,15 @@ module.exports = cds.service.impl(async function() {
 
         return SuccessFactorsMetadata.tx(req).post(`/cust_entrada_felizometro`, {
             cust_felizometro_externalCode: sFelizometroExternalCode,
-            cust_data: new Date().toISOString(),
             ...req.data
         });
 
+    });
+
+    this.on('getUltimoMood', async req => {
+        const userIdExternalCode = req.user.id;
+
+        return SuccessFactorsMetadata.tx(req).get(`/cust_entrada_felizometro?$filter=cust_felizometro_externalCode eq '${userIdExternalCode}'&$top=1&$orderby=createdDateTime desc`);
     });
 
 });

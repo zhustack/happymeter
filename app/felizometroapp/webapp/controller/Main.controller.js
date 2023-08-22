@@ -1,64 +1,70 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-	"sap/m/MessageBox"
+	"sap/m/MessageBox",
+    "br/com/epiuse/felizometro/felizometroapp/model/formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
     function (Controller,
 	JSONModel,
-	MessageBox) {
+	MessageBox,
+    formatter) {
         "use strict";
+
+        const A_SENTIMENTOS = [
+            {
+                descricao: "Muito triste",
+                icone: "muito_triste.png",
+                peso: 1,
+                tamanho: "L"
+            },
+            {
+                descricao: "Triste",
+                icone: "triste.png",
+                peso: 2,
+                tamanho: "L"
+            },
+            {
+                descricao: "Neutro",
+                icone: "neutro.png",
+                peso: 3,
+                tamanho: "L"
+            },
+            {
+                descricao: "Feliz",
+                icone: "feliz.png",
+                peso: 4,
+                tamanho: "L"
+            },
+            {
+                descricao: "Muito feliz",
+                icone: "muito_feliz.png",
+                peso: 5,
+                tamanho: "L"
+            },
+        ];
 
         return Controller.extend("br.com.epiuse.felizometro.felizometroapp.controller.Main", {
             onInit: function () {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("RouteMain").attachPatternMatched(this._matched, this);
             }, 
+            formatter: formatter,
             _matched: async function(oEvent) {
                 this.getView().setBusy(true);
                 
-                const [aDadosUsuario, sFotoUsuario, aUltimoMood] = await Promise.all([this.getOwnerComponent().FelizometroAPIHandler.getDadosDoUsuario(), 
+                const [aDadosUsuario, sFotoUsuario, oUltimoMood] = await Promise.all([this.getOwnerComponent().FelizometroAPIHandler.getDadosDoUsuario(), 
                                                                                       this.getOwnerComponent().FelizometroAPIHandler.getFotoDoUsuario(),
-                                                                                      this.getOwnerComponent().FelizometroAPIHandler.getUltimoMood()]);
+                                                                                      this._configuraUltimoMood()]);
                 
                 aDadosUsuario[0].foto = sFotoUsuario;
                                                             
                 const oViewModel = new JSONModel({
                     usuario: aDadosUsuario[0],
-                    sentimentos: [
-                        {
-                            descricao: "Muito triste",
-                            icone: "muito_triste.png",
-                            peso: 1,
-                            tamanho: "L"
-                        },
-                        {
-                            descricao: "Triste",
-                            icone: "triste.png",
-                            peso: 2,
-                            tamanho: "L"
-                        },
-                        {
-                            descricao: "Neutro",
-                            icone: "neutro.png",
-                            peso: 3,
-                            tamanho: "L"
-                        },
-                        {
-                            descricao: "Feliz",
-                            icone: "feliz.png",
-                            peso: 4,
-                            tamanho: "L"
-                        },
-                        {
-                            descricao: "Muito feliz",
-                            icone: "muito_feliz.png",
-                            peso: 5,
-                            tamanho: "L"
-                        },
-                    ],
+                    sentimentos: A_SENTIMENTOS,
+                    ultimoMood: oUltimoMood,
                     felizometro: null
                 });
 
@@ -68,6 +74,17 @@ sap.ui.define([
                 this.getView().setBusy(false);
 
             },
+
+            _configuraUltimoMood: async function() {
+                const aUltimoMood = await this.getOwnerComponent().FelizometroAPIHandler.getUltimoMood()
+
+                const oUltimoMood = aUltimoMood.length ? A_SENTIMENTOS.find(o => o.descricao === aUltimoMood[0].cust_sentimento) : null;
+                if(oUltimoMood !== null) {
+                    oUltimoMood.data = aUltimoMood[0].createdDateTime;
+                }
+
+                return oUltimoMood;
+            },  
 
             _resetaModel: function() {
                 this._oViewModel.getProperty("/sentimentos").forEach(oSentimento => oSentimento.tamanho = "L");
@@ -102,8 +119,10 @@ sap.ui.define([
                 await this.getOwnerComponent().FelizometroAPIHandler.criarFelizometro({cust_peso_sentimento, cust_sentimento});
                 
                 this.getView().setBusy(false);
-                MessageBox.success("Parabéns! Você acaba de adicionar mais um mood ao seu histórico de sentimentos.")
+                MessageBox.success("Parabéns! Você acaba de adicionar mais um mood ao seu histórico de sentimentos.");
+                
                 this._resetaModel();
+                this._matched();
             }
 
         });

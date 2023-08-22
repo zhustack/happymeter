@@ -47,7 +47,6 @@ module.exports = cds.service.impl(async function() {
 
         return SuccessFactorsMetadata.tx(req).post(`/cust_entrada_felizometro`, {
             cust_felizometro_externalCode: sFelizometroExternalCode,
-            cust_data: new Date().toISOString(),
             ...req.data
         });
 

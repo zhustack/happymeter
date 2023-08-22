@@ -19,9 +19,9 @@ sap.ui.define([
             _matched: async function(oEvent) {
                 this.getView().setBusy(true);
                 
-                const [aDadosUsuario, sFotoUsuario, aUltimoMood] = await Promise.all([this.getOwnerComponent().FelizometroAPIHandler.getDadosDoUsuario(), 
-                                                                                      this.getOwnerComponent().FelizometroAPIHandler.getFotoDoUsuario(),
-                                                                                      this.getOwnerComponent().FelizometroAPIHandler.getUltimoMood()]);
+                const [aDadosUsuario, sFotoUsuario] = await Promise.all([this.getOwnerComponent().FelizometroAPIHandler.getDadosDoUsuario(), 
+                                                                        this.getOwnerComponent().FelizometroAPIHandler.getFotoDoUsuario(),
+                                                                        ]);
                 
                 aDadosUsuario[0].foto = sFotoUsuario;
                                                             

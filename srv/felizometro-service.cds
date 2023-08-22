@@ -11,11 +11,5 @@ service FelizometroService @(requires: 'authenticated-user') {
     }; 
     entity cust_felizometro as projection on SuccessFactorsMetadata.cust_felizometro; 
     entity cust_entrada_felizometro as projection on SuccessFactorsMetadata.cust_entrada_felizometro; 
-
-    function getUltimoMood() returns {
-        createdDateTime: DateTime;
-        cust_sentimento: String;
-        cust_peso_sentimento: Integer;
-    }
     
 }

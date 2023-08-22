@@ -42,15 +42,6 @@ sap.ui.define([
             });
         },
 
-        getUltimoMood() {
-            return new Promise(resolve => {
-                this._felizometroModel.callFunction("/getUltimoMood", {
-                    filters: filters,
-                    success: (res) => resolve(res.getUltimoMood || res)
-                })
-            });
-        },
-
         criarFelizometro: async function(dadosFelizometro) {
             return new Promise(resolve => {
               this._felizometroModel.create("/cust_entrada_felizometro", dadosFelizometro, {

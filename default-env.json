@@ -1,0 +1,70 @@
+{
+"VCAP_SERVICES": {
+  "destination": [
+    {
+      "binding_guid": "02b2616b-ff8d-4d77-8e87-2a19f4b227d4",
+      "binding_name": null,
+      "credentials": {
+        "clientid": "sb-clone37d2d8df635c4d76abd460d26c01e51c!b187740|destination-xsappname!b62",
+        "clientsecret": "02b2616b-ff8d-4d77-8e87-2a19f4b227d4$M7PiVTQlhF_fbGNGm-x7XlFvYOhE3S2F5typTz0OUT0=",
+        "credential-type": "binding-secret",
+        "identityzone": "ae784918trial",
+        "instanceid": "37d2d8df-635c-4d76-abd4-60d26c01e51c",
+        "tenantid": "17f14448-8c46-4bbd-b216-ffd386e68c35",
+        "tenantmode": "dedicated",
+        "uaadomain": "authentication.us10.hana.ondemand.com",
+        "uri": "https://destination-configuration.cfapps.us10.hana.ondemand.com",
+        "url": "https://ae784918trial.authentication.us10.hana.ondemand.com",
+        "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlbenscn+jFSREqiyZbPu\nJ52YWwvVQxhV/oW5jBXfU8GbmRtBCl3b+QCnF7HtDZxzEWYXluY9RqZcgePWB+NP\nlc9knocKt9WDJ9DvpY6fdmOwSeWXgxKb3BGCAayuPQaz/eDYKHCYftEfXqtGL9Yz\nZvE3nzYbo310wUNhVsWtKRfOVaMKeMF4ashzSHh7p9qc6OXH1meHr6MU2FaQqDgJ\nf0Z8N9qAcavvM5CTKGC4XwzTpeDgq/zqvqJKD/sNLLzQNtfRGK1oZES+cCrV+CQZ\nA6JES8URFQDRN/yzXSMyvFrqFkBCYDx1pMDOGq3PNVfMjTaXYB3ESbnzj6men+c9\nkQIDAQAB\n-----END PUBLIC KEY-----",
+        "xsappname": "clone37d2d8df635c4d76abd460d26c01e51c!b187740|destination-xsappname!b62"
+      },
+      "instance_guid": "37d2d8df-635c-4d76-abd4-60d26c01e51c",
+      "instance_name": "felizometro-destination",
+      "label": "destination",
+      "name": "felizometro-destination",
+      "plan": "lite",
+      "provider": null,
+      "syslog_drain_url": null,
+      "tags": [
+        "destination",
+        "conn",
+        "connsvc"
+      ],
+      "volume_mounts": []
+    }
+  ],
+  "xsuaa": [
+    {
+      "binding_guid": "a624ceea-af77-4aaa-893d-744d1c47e213",
+      "binding_name": null,
+      "credentials": {
+        "apiurl": "https://api.authentication.us10.hana.ondemand.com",
+        "clientid": "sb-felizometro!t187740",
+        "clientsecret": "8681TDEcMxz2sYd9V0I1IYWsZRw=",
+        "credential-type": "instance-secret",
+        "identityzone": "ae784918trial",
+        "identityzoneid": "17f14448-8c46-4bbd-b216-ffd386e68c35",
+        "sburl": "https://internal-xsuaa.authentication.us10.hana.ondemand.com",
+        "subaccountid": "17f14448-8c46-4bbd-b216-ffd386e68c35",
+        "tenantid": "17f14448-8c46-4bbd-b216-ffd386e68c35",
+        "tenantmode": "dedicated",
+        "uaadomain": "authentication.us10.hana.ondemand.com",
+        "url": "https://ae784918trial.authentication.us10.hana.ondemand.com",
+        "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlbenscn+jFSREqiyZbPu\nJ52YWwvVQxhV/oW5jBXfU8GbmRtBCl3b+QCnF7HtDZxzEWYXluY9RqZcgePWB+NP\nlc9knocKt9WDJ9DvpY6fdmOwSeWXgxKb3BGCAayuPQaz/eDYKHCYftEfXqtGL9Yz\nZvE3nzYbo310wUNhVsWtKRfOVaMKeMF4ashzSHh7p9qc6OXH1meHr6MU2FaQqDgJ\nf0Z8N9qAcavvM5CTKGC4XwzTpeDgq/zqvqJKD/sNLLzQNtfRGK1oZES+cCrV+CQZ\nA6JES8URFQDRN/yzXSMyvFrqFkBCYDx1pMDOGq3PNVfMjTaXYB3ESbnzj6men+c9\nkQIDAQAB\n-----END PUBLIC KEY-----",
+        "xsappname": "felizometro!t187740",
+        "zoneid": "17f14448-8c46-4bbd-b216-ffd386e68c35"
+      },
+      "instance_guid": "05e50a42-75de-4c90-ae37-62badc2bd252",
+      "instance_name": "felizometro-uaa",
+      "label": "xsuaa",
+      "name": "felizometro-uaa",
+      "plan": "application",
+      "provider": null,
+      "syslog_drain_url": null,
+      "tags": [
+        "xsuaa"
+      ],
+      "volume_mounts": []
+    }
+  ]
+}}

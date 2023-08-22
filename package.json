@@ -57,7 +57,10 @@
         "[development]": {
           "type": "mock",
           "users": {
-            "108730": "Russell Goddard"
+            "108730": "Russell Goddard",
+            "80280": "Lauren Robbins",
+            "108731": "Gordon Elliston",
+            "100115": "Mya Cooper"
           }
         }
       },

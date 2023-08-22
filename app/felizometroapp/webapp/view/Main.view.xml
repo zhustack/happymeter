@@ -1,0 +1,53 @@
+<mvc:View xmlns:f="sap.f" controllerName="br.com.epiuse.felizometro.felizometroapp.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form">
+    <Page id="page" title="{i18n>title}" class="sapUiResponsiveContentPadding" showFooter="true">
+        <content>
+            <Panel headerText="Olá, {ViewModel>/usuario/firstName}" width="100%">
+                <FlexBox direction="Row" alignItems="Start" justifyContent="Start">
+                    <Avatar src="{ViewModel>/usuario/foto}" displaySize="XL" class="sapUiSmallMarginEnd"/>
+                    <form:SimpleForm id="SimpleFormDisplay354"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        title="Seus dados básicos"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="4"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" >
+                        <form:content>
+                            <Label text="Nome completo" />
+                            <Text text="{ViewModel>/usuario/defaultFullName}" />
+                            <Label text="Cargo" />
+                            <Text text="{ViewModel>/usuario/jobTitle}" />
+                            <Label text="Departamento" />
+                            <Text text="{ViewModel>/usuario/department}" />
+                            <Label text="Gestor" />
+                            <Text text="{ViewModel>/usuario/manager/defaultFullName}" />
+                        </form:content>
+                    </form:SimpleForm>
+                </FlexBox>
+            </Panel>
+            <Panel class="sapUiSmallMarginTop" width="100%">
+                <Text text="Como você está se sentindo hoje?" class="text_pergunta_sentimento"/>
+                <HBox items="{ViewModel>/sentimentos}" height="150px" width="100%" alignItems="Center" justifyContent="SpaceAround">
+                    <Avatar src="assets/{ViewModel>icone}" showBorder="false" displaySize="{ViewModel>tamanho}" press="handleSelecionaSentimento"/>
+                </HBox>
+            </Panel>
+        </content>
+        <footer>
+            <OverflowToolbar >
+                <ToolbarSpacer/>
+                <Button icon="sap-icon://paper-plane" text="Enviar" type="Emphasized" enabled="{= ${ViewModel>/felizometro} !== null}" press="handleAbreDialogoDeConfirmacao"/>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,18 @@
+/* Enter your custom styles here */
+.text_pergunta_sentimento {
+    font-size: 20pt !important;
+    font-weight: lighter;
+}
+
+.sapFAvatarFocusable.sapMAvatarPressed {
+    box-shadow: none !important;
+}
+
+.sapFAvatarFocusable:focus {
+    outline: none !important;
+}
+
+.sapFAvatarFocusable.sapMAvatarPressed:hover {
+    background-color: transparent !important;
+    outline: none !important;
+}

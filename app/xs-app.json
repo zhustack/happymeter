@@ -1,0 +1,24 @@
+{
+  "authenticationMethod": "route",
+  "welcomeFile": "felizometroapp/index.html",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "^/felizometroapp(.*)$",
+      "target": "$1",
+      "localDir": "./felizometroapp",
+      "cacheControl": "no-cache, no-store, must-revalidate",
+      "authenticationType": "xsuaa",
+      "identityProvider": "SalesDemo"
+    },
+    {
+      "source": "^/v2/backend/(.*)$",
+      "target": "/v2/backend/$1",
+      "destination": "srv_api",
+      "authenticationType":"xsuaa",
+      "csrfProtection": true
+    }
+  ]
+}

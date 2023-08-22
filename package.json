@@ -1,0 +1,77 @@
+{
+  "name": "felizometro",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "5.9.8",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.6",
+    "@sap/xssec": "^3.3.3",
+    "express": "^4",
+    "passport": "^0.6.0"
+  },
+  "devDependencies": {
+    "@sap/ux-specification": "^1.108.12",
+    "sqlite3": "^5.0.2"
+  },
+  "scripts": {
+    "start": "cds run",
+    "watch": "cds watch",
+    "undeploy": "cf undeploy undefined --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "build:ui": "npm run build:felizometroapp",
+    "build:felizometroapp": "ui5 build --config=app/felizometroapp/ui5.yaml --clean-dest --dest gen/app/felizometroapp",
+    "cp:approuter": "cp ./app/xs-app.json ./gen/app & cp ./app/package.json ./gen/app"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "[development]": {
+          "type": "mock",
+          "users": {
+            "108730": "Russell Goddard"
+          }
+        }
+      },
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "SuccessFactorsMetadata": {
+        "kind": "odata-v2",
+        "model": "srv/external/SuccessFactorsMetadata",
+        "credentials": {
+          "path": "/odata/v2",
+          "destination": "api_salesdemo"
+        }
+      }
+    }
+  }
+}

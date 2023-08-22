@@ -1,0 +1,70 @@
+---
+_schema-version: '3.1'
+ID: felizometro
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx -p @sap/cds-dk cds build --production
+        - npm run build:ui
+        - npm run cp:approuter
+
+modules:
+  - name: felizometro-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: felizometro-destination
+      - name: felizometro-uaa
+
+  - name: felizometro
+    type: approuter.nodejs
+    path: gen/app # from cds.env.folders. Consider also cds.env.build.target --> gen/app
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+      # hosts: # additional tenant specific hostnames (only for Canary)
+      ## the developer will do this via an extension descriptor:
+      # - <paas-subdomain >${tenant-delimiter}${host}
+      # - <saas-subdomain1>${tenant-delimiter}${host}
+      # - ...
+    requires:
+      - name: felizometro-destination
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # this is a name which must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: felizometro-uaa
+
+resources:
+  - name: felizometro-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: felizometro
+        tenant-mode: dedicated
+        
+  - name: felizometro-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

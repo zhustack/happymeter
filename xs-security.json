@@ -1,0 +1,22 @@
+{
+  "xsappname": "felizometro",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": ["uaa.user"]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+        "https://ae784918trial-dev-felizometro.cfapps.us10-001.hana.ondemand.com/login/callback"
+    ]
+}
+}

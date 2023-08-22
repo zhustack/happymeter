@@ -1,0 +1,9 @@
+specVersion: "2.5"
+metadata:
+  name: felizometroapp
+type: application
+resources:
+  configuration:
+    paths: 
+      webapp: app/felizometroapp/webapp
+    propertiesFileSourceEncoding: UTF-8
